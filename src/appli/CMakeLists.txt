@@ -106,6 +106,9 @@ SET(EXE_NAME test)
 add_executable(${EXE_NAME}   ${EXE_NAME}.cxx)
 target_link_libraries(${EXE_NAME} ${ITK_LIBRARIES})
 
+SET(EXE_NAME 3DVolumeTo2DSlices)
+ADD_EXECUTABLE(${EXE_NAME} ${EXE_NAME}.cxx)
+TARGET_LINK_LIBRARIES(${EXE_NAME} ${ITK_LIBRARIES})
 
 IF(${VTK_FOUND})
 
