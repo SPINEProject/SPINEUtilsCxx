@@ -24,6 +24,7 @@ int main( int argc, char ** argv )
   typedef itk::Image< PixelType, dimension > ImageType;
 
   PixelType labelforundecided = 0;
+  ImageType::SpacingType spc;
 
   typedef itk::ImageFileReader<ImageType> ImageReaderType;
 
@@ -38,6 +39,11 @@ int main( int argc, char ** argv )
     reader->Update();
     filter->SetInput(i-1, reader->GetOutput());
 
+    // Get the spacing of the first image
+    if(i==1){
+      spc = reader->GetOutput()->GetSpacing();
+    }
+
   }
   
   filter->Update();
@@ -51,7 +57,11 @@ int main( int argc, char ** argv )
   typedef itk::ImageFileWriter<ImageType> ImageWriterType;
   ImageWriterType::Pointer writer = ImageWriterType::New();
   writer->SetFileName(filename);
-  writer->SetInput( filter->GetOutput() );
+  // Set the spacing for the output image
+  ImageType::Pointer imageOut = filter->GetOutput();
+  imageOut->Update();
+  imageOut->SetSpacing(spc);
+  writer->SetInput( imageOut );
   writer->Update();
 
   cout<<"{"<<endl;
