@@ -56,6 +56,7 @@ int main( int argc, char ** argv )
   ImageType::Pointer output = ImageType::New();
   output->SetDirection(image->GetDirection());
   output->SetOrigin(image->GetOrigin());
+  output->SetSpacing(image->GetSpacing());
   output->SetRegions(region);
   output->Allocate();
   //output->FillBuffer(0);
